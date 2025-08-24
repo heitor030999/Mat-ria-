@@ -132,6 +132,18 @@ function finishQuiz() {
   }).then(()=>alert("Pontuação salva! 🎉"));
 }
 </script>
-
+// Puxa ranking do Firebase e mostra na tela
+db.collection("ranking").orderBy("pontos","desc").get()
+.then(snapshot=>{
+  let pos=1;
+  snapshot.forEach(doc=>{
+    const data = doc.data();
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${pos}</td><td>${data.nome}</td><td>${data.pontos}</td>`;
+    tabela.appendChild(tr);
+    pos++;
+  });
+});
+</script>
 </body>
 </html>
